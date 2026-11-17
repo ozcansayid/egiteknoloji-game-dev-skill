@@ -19,9 +19,17 @@ Oyun ve arayüz ikonları için birincil standart **Google Material Symbols Roun
 
 ---
 
-## 2. Sıfır Bağımlılıklı Web Audio SFX (`templates/core/audio-synth.js`)
+## 2. Özel Ses Kütüphanesi (`assets/sounds/`) ve Web Audio SFX
 
-Oyun efektleri için dışarıdan `.mp3`/`.wav` indirilmez; `AudioContext` ile anında sentezlenir.
+### A. Özel Ses Klasörü Önceliği (`assets/sounds/`)
+Skill içindeki `assets/sounds/` (`ui/`, `feedback/`, `sfx/`, `bgm/`) klasöründe kullanıcının eklediği ses dosyaları varsa:
+1. Oyun üretmeden önce `assets/sounds/` klasörünü listele ve temaya uygun sesleri tespit et.
+2. Küçük boyut kuralını korumak için **yalnızca o oyunda kullanılacak ses dosyalarını** yeni oyunun `assets/sounds/` klasörüne kopyala (tüm arşivi kopyalama).
+3. `sfx.loadBank({ click: 'assets/sounds/ui/click.mp3', ... })` ile bağla. Dosyası eklenmemiş efektler için `audio-synth.js` otomatik olarak prosedürel Web Audio sentezine düşer (fallback).
+
+### B. Sıfır Bağımlılıklı Web Audio SFX (`templates/core/audio-synth.js`)
+
+Harici ses dosyası yoksa veya eksikse efektler `AudioContext` ile anında sentezlenir.
 - **Autoplay Kilidi:** İlk `pointerdown` veya `keydown` olayında `audio.unlock()` otomatik çağrılır.
 - **Pitch Escalation:** `sfx.coin(combo)` veya `sfx.correct(streak)` çağrılarında ardışık doğrularda ses frekansı hafifçe yükselir (oyuncu motivasyonunu artırır).
 - **Mute Desteği:** HUD'da her zaman tek tıkla aç/kapa yapılabilen bir ses butonu bulunur ve tercih `localStorage` içinde saklanır.
