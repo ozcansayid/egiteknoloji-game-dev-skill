@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Fredoka:wght@500;600;700&family=Inter:wght@400;600;700&family=Nunito:wght@700;800;900&family=Patrick+Hand&family=Quicksand:wght@600;700&display=swap"
-    rel="stylesheet"
-  />
+    rel="stylesheet" />
   <style>
     :root {
       --bg: #f7f7f7;
@@ -30,7 +30,11 @@
       --font-body: 'Quicksand', 'Nunito', 'Segoe UI', system-ui, sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       background: var(--bg);
@@ -85,16 +89,31 @@
       font-size: 0.85rem;
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       font-family: var(--font-display);
       line-height: 1.25;
     }
 
-    h1 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin-bottom: 8px; }
-    h2 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); margin-bottom: 10px; }
-    h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      margin-bottom: 8px;
+    }
 
-    .muted { color: var(--muted); }
+    h2 {
+      font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
 
     .style-switcher {
       display: flex;
@@ -117,7 +136,9 @@
       transition: transform 0.1s ease, background-color 0.15s ease;
     }
 
-    .chip-btn:active { transform: scale(0.96); }
+    .chip-btn:active {
+      transform: scale(0.96);
+    }
 
     .chip-btn.is-active {
       background: var(--primary);
@@ -147,7 +168,9 @@
     }
 
     @media (min-width: 820px) {
-      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .sub-card {
@@ -179,10 +202,25 @@
       transition: transform 0.08s ease;
     }
 
-    .btn:active { transform: translateY(2px); }
-    .btn--accent { background: var(--accent); border-bottom-color: var(--accent-edge); }
-    .btn--warn { background: var(--warn); border-bottom-color: #d97706; color: #1e293b; }
-    .btn--danger { background: var(--danger); border-bottom-color: #b91c1c; }
+    .btn:active {
+      transform: translateY(2px);
+    }
+
+    .btn--accent {
+      background: var(--accent);
+      border-bottom-color: var(--accent-edge);
+    }
+
+    .btn--warn {
+      background: var(--warn);
+      border-bottom-color: #d97706;
+      color: #1e293b;
+    }
+
+    .btn--danger {
+      background: var(--danger);
+      border-bottom-color: #b91c1c;
+    }
 
     /* Mod A: 16:9 Mini Canvas */
     .stage-16-9-demo {
@@ -250,8 +288,17 @@
       cursor: pointer;
     }
 
-    .opt-btn.is-ok { background: #dcfce7; border-color: #22c55e; color: #14532d; }
-    .opt-btn.is-err { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
+    .opt-btn.is-ok {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #14532d;
+    }
+
+    .opt-btn.is-err {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #7f1d1d;
+    }
 
     .feedback-box {
       margin-top: 10px;
@@ -286,7 +333,10 @@
       font-weight: 700;
     }
 
-    .icon-tile svg { width: 22px; height: 22px; }
+    .icon-tile svg {
+      width: 22px;
+      height: 22px;
+    }
 
     pre {
       background: #0f172a;
@@ -354,9 +404,13 @@
       cursor: pointer;
     }
 
-    .mute-pill-btn svg { width: 18px; height: 18px; }
+    .mute-pill-btn svg {
+      width: 18px;
+      height: 18px;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- HERO & TASARIM DİLİ SEÇİCİ -->
@@ -366,15 +420,20 @@
         <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
           <span id="active-style-label" class="muted" style="font-weight:700;">Aktif Stil: Duolingo Tactile</span>
           <button id="global-mute-btn" class="mute-pill-btn" type="button" aria-label="Sesi Aç veya Kapat">
-            <svg id="mute-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14 20.725v-2.05q2.25-.65 3.625-2.5t1.375-4.2q0-2.35-1.375-4.2T14 5.275v-2.05q3.1.7 5.05 3.137T21 11.975q0 3.175-1.95 5.613T14 20.725ZM3 15V9h4l5-5v16l-5-5H3Z"/></svg>
+            <svg id="mute-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M14 20.725v-2.05q2.25-.65 3.625-2.5t1.375-4.2q0-2.35-1.375-4.2T14 5.275v-2.05q3.1.7 5.05 3.137T21 11.975q0 3.175-1.95 5.613T14 20.725ZM3 15V9h4l5-5v16l-5-5H3Z" />
+            </svg>
             <span id="mute-label">Ses Açık</span>
           </button>
         </div>
       </div>
       <h1>Eğitsel Oyun Tasarım Dilleri &amp; Bileşen Vitrini</h1>
       <p class="muted">
-        Aşağıdaki butonlara tıklayarak tüm sayfayı farklı tasarım dillerine anında dönüştürebilir, yaş grubu tipografilerini,
-        Mod A (16:9 Canvas) / Mod B (Adaptif) etkinlik türlerini, Web Audio SFX sentezini ve SCORM 1.2 çıktısını canlı test edebilirsiniz.
+        Aşağıdaki butonlara tıklayarak tüm sayfayı farklı tasarım dillerine anında dönüştürebilir, yaş grubu
+        tipografilerini,
+        Mod A (16:9 Canvas) / Mod B (Adaptif) etkinlik türlerini, Web Audio SFX sentezini ve SCORM 1.2 çıktısını canlı
+        test edebilirsiniz.
       </p>
 
       <div class="style-switcher" id="style-switcher" role="group" aria-label="Tasarım Dili Seçici"></div>
@@ -386,7 +445,8 @@
     <section class="panel">
       <h2>1. Yaş Grubuna Göre Tipografi &amp; Okunabilirlik Matrisi</h2>
       <p class="muted" style="margin-bottom:14px;">
-        Her yaş grubu için SIL OFL lisanslı açık formlu Google Fonts ailesi, uygun <code>clamp()</code> punto aralığı ve rakam zıplamasını önleyen <code>tabular-nums</code> kullanılır.
+        Her yaş grubu için SIL OFL lisanslı açık formlu Google Fonts ailesi, uygun <code>clamp()</code> punto aralığı ve
+        rakam zıplamasını önleyen <code>tabular-nums</code> kullanılır.
       </p>
       <div class="grid-4">
         <div class="sub-card" style="font-family: 'Fredoka', sans-serif;">
@@ -411,7 +471,8 @@
         </div>
       </div>
 
-      <div class="sub-card" style="margin-top:14px; flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+      <div class="sub-card"
+        style="margin-top:14px; flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap;">
         <div>
           <strong>Tabular-Nums Sayaç Testi:</strong>
           <span class="muted">Rakamlar değişirken kutu genişliği asla zıplamaz.</span>
@@ -428,10 +489,10 @@
       <h2>2. Etkinlik Türleri &amp; Farklı Cihazlarda Görünürlük Testi</h2>
       <div class="device-toolbar" role="group" aria-label="Cihaz Boyutu Seçici">
         <strong style="font-size:0.9rem;">Cihaz Önizleme:</strong>
-        <button class="style-btn is-active" data-device="desktop" type="button">Masaüstü (%100)</button>
-        <button class="style-btn" data-device="tablet" type="button">Tablet (768px)</button>
-        <button class="style-btn" data-device="mobile-p" type="button">Mobil Dikey (375px)</button>
-        <button class="style-btn" data-device="mobile-l" type="button">Mobil Yatay (667px)</button>
+        <button class="chip-btn is-active" data-device="desktop" type="button">Masaüstü (%100)</button>
+        <button class="chip-btn" data-device="tablet" type="button">Tablet (768px)</button>
+        <button class="chip-btn" data-device="mobile-p" type="button">Mobil Dikey (375px)</button>
+        <button class="chip-btn" data-device="mobile-l" type="button">Mobil Yatay (667px)</button>
       </div>
       <div class="device-frame" id="device-frame">
         <div class="grid-2">
@@ -439,7 +500,8 @@
           <div class="sub-card">
             <h3>Mod A: 16:9 Kilitli Canvas Sahne (Arcade / Simülasyon)</h3>
             <p class="muted" style="font-size:0.9rem;">
-              Fizik, yakalama veya koordinat hassasiyeti gerektiren oyunlarda sanal çözünürlük (1280×720) korunur. Yıldızlara tıkla!
+              Fizik, yakalama veya koordinat hassasiyeti gerektiren oyunlarda sanal çözünürlük (1280×720) korunur.
+              Yıldızlara tıkla!
             </p>
             <div class="stage-16-9-demo">
               <canvas id="mini-canvas"></canvas>
@@ -479,31 +541,44 @@
       <div class="grid-2">
         <div class="sub-card">
           <h3>Gerçek Ses Efektleri (<code>assets/sounds/</code>)</h3>
-          <p class="muted" style="font-size:0.88rem;">Butonlara tıklayarak eklediğin UI, Feedback ve SFX seslerini doğrudan dinleyebilirsin.</p>
+          <p class="muted" style="font-size:0.88rem;">Butonlara tıklayarak eklediğin UI, Feedback ve SFX seslerini
+            doğrudan dinleyebilirsin.</p>
           <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;">
             <button class="btn" data-sound="../assets/sounds/ui/click.mp3" data-fb="click" type="button">Click</button>
             <button class="btn" data-sound="../assets/sounds/ui/pop.mp3" data-fb="click" type="button">Pop</button>
-            <button class="btn" data-sound="../assets/sounds/ui/card-flip.mp3" data-fb="click" type="button">Card Flip</button>
-            <button class="btn" data-sound="../assets/sounds/ui/page-flip.mp3" data-fb="click" type="button">Page Flip</button>
-            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/jump.mp3" data-fb="jump" type="button">Jump</button>
-            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/hit.mp3" data-fb="wrong" type="button">Hit</button>
-            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/swoosh.mp3" data-fb="click" type="button">Swoosh</button>
-            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/spin.mp3" data-fb="jump" type="button">Spin</button>
-            <button class="btn btn--warn" id="sfx-correct" data-sound="../assets/sounds/feedback/correct.mp3" data-fb="correct" type="button">Correct (Combo: <span id="combo-num">1</span>)</button>
-            <button class="btn btn--danger" id="sfx-wrong" data-sound="../assets/sounds/feedback/incorrect.mp3" data-fb="wrong" type="button">Incorrect</button>
-            <button class="btn" data-sound="../assets/sounds/feedback/collect.mp3" data-fb="correct" type="button">Collect</button>
-            <button class="btn" data-sound="../assets/sounds/feedback/bonus.mp3" data-fb="win" type="button">Bonus</button>
-            <button class="btn" data-sound="../assets/sounds/feedback/level-up.mp3" data-fb="win" type="button">Level Up</button>
-            <button class="btn" data-sound="../assets/sounds/feedback/game-complete.mp3" data-fb="win" type="button">Game Complete</button>
+            <button class="btn" data-sound="../assets/sounds/ui/card-flip.mp3" data-fb="click" type="button">Card
+              Flip</button>
+            <button class="btn" data-sound="../assets/sounds/ui/page-flip.mp3" data-fb="click" type="button">Page
+              Flip</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/jump.mp3" data-fb="jump"
+              type="button">Jump</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/hit.mp3" data-fb="wrong"
+              type="button">Hit</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/swoosh.mp3" data-fb="click"
+              type="button">Swoosh</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/spin.mp3" data-fb="jump"
+              type="button">Spin</button>
+            <button class="btn btn--warn" id="sfx-correct" data-sound="../assets/sounds/feedback/correct.mp3"
+              data-fb="correct" type="button">Correct (Combo: <span id="combo-num">1</span>)</button>
+            <button class="btn btn--danger" id="sfx-wrong" data-sound="../assets/sounds/feedback/incorrect.mp3"
+              data-fb="wrong" type="button">Incorrect</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/collect.mp3" data-fb="correct"
+              type="button">Collect</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/bonus.mp3" data-fb="win"
+              type="button">Bonus</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/level-up.mp3" data-fb="win" type="button">Level
+              Up</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/game-complete.mp3" data-fb="win"
+              type="button">Game Complete</button>
           </div>
 
           <h3 style="margin-top:10px;">Arka Plan Müziği (BGM) Testi</h3>
           <div style="display:flex; flex-wrap:wrap; gap:6px;">
-            <button class="style-btn" data-bgm="../assets/sounds/bgm/kids-music.mp3" type="button">Kids Music</button>
-            <button class="style-btn" data-bgm="../assets/sounds/bgm/soft-guitar.mp3" type="button">Soft Guitar</button>
-            <button class="style-btn" data-bgm="../assets/sounds/bgm/retro.mp3" type="button">Retro</button>
-            <button class="style-btn" data-bgm="../assets/sounds/bgm/funk.mp3" type="button">Funk</button>
-            <button class="style-btn" id="bgm-stop" type="button">Müziği Durdur</button>
+            <button class="chip-btn" data-bgm="../assets/sounds/bgm/kids-music.mp3" type="button">Kids Music</button>
+            <button class="chip-btn" data-bgm="../assets/sounds/bgm/soft-guitar.mp3" type="button">Soft Guitar</button>
+            <button class="chip-btn" data-bgm="../assets/sounds/bgm/retro.mp3" type="button">Retro</button>
+            <button class="chip-btn" data-bgm="../assets/sounds/bgm/funk.mp3" type="button">Funk</button>
+            <button class="chip-btn" id="bgm-stop" type="button">Müziği Durdur</button>
           </div>
         </div>
 
@@ -512,23 +587,36 @@
           <p class="muted" style="font-size:0.9rem;">SCORM ve kapalı okul ağlarında ikon fontu kırılmalarını önler.</p>
           <div class="icon-row">
             <span class="icon-tile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 19V5l11 7-11 7Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 19V5l11 7-11 7Z" />
+              </svg>
               Play
             </span>
             <span class="icon-tile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 19V5h4v14h-4Zm-8 0V5h4v14H6Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 19V5h4v14h-4Zm-8 0V5h4v14H6Z" />
+              </svg>
               Pause
             </span>
             <span class="icon-tile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20q-3.35 0-5.675-2.325T4 12q0-3.35 2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.188-2.2T12 6Q9.5 6 7.75 7.75T6 12q0 2.5 1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 20q-3.35 0-5.675-2.325T4 12q0-3.35 2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.188-2.2T12 6Q9.5 6 7.75 7.75T6 12q0 2.5 1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20Z" />
+              </svg>
               Replay
             </span>
             <span class="icon-tile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m10.6 16.6 7.05-7.05-1.4-1.4-5.65 5.65-2.85-2.85-1.4 1.4 4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="m10.6 16.6 7.05-7.05-1.4-1.4-5.65 5.65-2.85-2.85-1.4 1.4 4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z" />
+              </svg>
               Check
             </span>
             <span class="icon-tile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 20.725v-2.05q2.25-.65 3.625-2.5t1.375-4.2q0-2.35-1.375-4.2T14 5.275v-2.05q3.1.7 5.05 3.137T21 11.975q0 3.175-1.95 5.613T14 20.725ZM3 15V9h4l5-5v16l-5-5H3Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M14 20.725v-2.05q2.25-.65 3.625-2.5t1.375-4.2q0-2.35-1.375-4.2T14 5.275v-2.05q3.1.7 5.05 3.137T21 11.975q0 3.175-1.95 5.613T14 20.725ZM3 15V9h4l5-5v16l-5-5H3Z" />
+              </svg>
               Volume
             </span>
           </div>
@@ -540,7 +628,8 @@
     <section class="panel">
       <h2>4. SCORM 1.2 &amp; <code>postMessage</code> Entegrasyon Çıktısı</h2>
       <p class="muted" style="margin-bottom:10px;">
-        Oyun LMS ortamında (Moodle, EBA, Canvas) SCORM 1.2 API'sini otomatik algılar; iframe içinde ise ana pencereye <code>postMessage</code> gönderir.
+        Oyun LMS ortamında (Moodle, EBA, Canvas) SCORM 1.2 API'sini otomatik algılar; iframe içinde ise ana pencereye
+        <code>postMessage</code> gönderir.
       </p>
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
         <button class="btn" id="sim-progress" type="button">İlerleme Gönder (%50)</button>
@@ -846,7 +935,7 @@
         activeBgm.loop = true;
         activeBgm.volume = 0.28;
         activeBgm.muted = isMuted;
-        activeBgm.play().catch(() => {});
+        activeBgm.play().catch(() => { });
       });
     });
 
@@ -901,4 +990,5 @@
     });
   </script>
 </body>
+
 </html>
