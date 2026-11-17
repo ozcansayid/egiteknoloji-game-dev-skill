@@ -311,6 +311,50 @@
       border-radius: 9999px;
       border: 2px solid rgba(0, 0, 0, 0.15);
     }
+
+    /* Cihaz Önizleme Çerçevesi */
+    .device-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .device-frame {
+      margin: 0 auto;
+      width: 100%;
+      transition: max-width 0.25s ease;
+    }
+
+    .device-frame.is-framed {
+      border: 3px solid var(--text);
+      border-radius: 22px;
+      padding: 12px;
+      background: var(--bg);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+    }
+
+    .device-frame.is-mobile .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .mute-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      border: var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .mute-pill-btn svg { width: 18px; height: 18px; }
   </style>
 </head>
 <body>
@@ -319,7 +363,13 @@
     <header class="hero">
       <div class="hero-top">
         <span class="badge">egiteknolojilab-game-dev • Canlı Vitrin</span>
-        <span id="active-style-label" class="muted" style="font-weight:700;">Aktif Stil: Duolingo Tactile</span>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span id="active-style-label" class="muted" style="font-weight:700;">Aktif Stil: Duolingo Tactile</span>
+          <button id="global-mute-btn" class="mute-pill-btn" type="button" aria-label="Sesi Aç veya Kapat">
+            <svg id="mute-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14 20.725v-2.05q2.25-.65 3.625-2.5t1.375-4.2q0-2.35-1.375-4.2T14 5.275v-2.05q3.1.7 5.05 3.137T21 11.975q0 3.175-1.95 5.613T14 20.725ZM3 15V9h4l5-5v16l-5-5H3Z"/></svg>
+            <span id="mute-label">Ses Açık</span>
+          </button>
+        </div>
       </div>
       <h1>Eğitsel Oyun Tasarım Dilleri &amp; Bileşen Vitrini</h1>
       <p class="muted">
@@ -373,60 +423,87 @@
       </div>
     </section>
 
-    <!-- BÖLÜM 2: ETKİNLİK TÜRLERİ (MOD A vs MOD B) -->
+    <!-- BÖLÜM 2: ETKİNLİK TÜRLERİ & CİHAZ ÖNİZLEME -->
     <section class="panel">
-      <h2>2. Etkinlik Türleri: Mod A (16:9 Kilitli) vs Mod B (Tam Adaptif)</h2>
-      <div class="grid-2">
-        <!-- MOD A -->
-        <div class="sub-card">
-          <h3>Mod A: 16:9 Kilitli Canvas Sahne (Arcade / Simülasyon)</h3>
-          <p class="muted" style="font-size:0.9rem;">
-            Fizik, yakalama veya koordinat hassasiyeti gerektiren oyunlarda sanal çözünürlük (1280×720) korunur. Yıldızlara tıkla!
-          </p>
-          <div class="stage-16-9-demo">
-            <canvas id="mini-canvas"></canvas>
-            <div class="stage-hud">
-              <span class="pill hud-counter">Skor: <span id="canvas-score">0</span></span>
-              <span class="pill">16:9 HiDPI</span>
+      <h2>2. Etkinlik Türleri &amp; Farklı Cihazlarda Görünürlük Testi</h2>
+      <div class="device-toolbar" role="group" aria-label="Cihaz Boyutu Seçici">
+        <strong style="font-size:0.9rem;">Cihaz Önizleme:</strong>
+        <button class="style-btn is-active" data-device="desktop" type="button">Masaüstü (%100)</button>
+        <button class="style-btn" data-device="tablet" type="button">Tablet (768px)</button>
+        <button class="style-btn" data-device="mobile-p" type="button">Mobil Dikey (375px)</button>
+        <button class="style-btn" data-device="mobile-l" type="button">Mobil Yatay (667px)</button>
+      </div>
+      <div class="device-frame" id="device-frame">
+        <div class="grid-2">
+          <!-- MOD A -->
+          <div class="sub-card">
+            <h3>Mod A: 16:9 Kilitli Canvas Sahne (Arcade / Simülasyon)</h3>
+            <p class="muted" style="font-size:0.9rem;">
+              Fizik, yakalama veya koordinat hassasiyeti gerektiren oyunlarda sanal çözünürlük (1280×720) korunur. Yıldızlara tıkla!
+            </p>
+            <div class="stage-16-9-demo">
+              <canvas id="mini-canvas"></canvas>
+              <div class="stage-hud">
+                <span class="pill hud-counter">Skor: <span id="canvas-score">0</span></span>
+                <span class="pill">16:9 HiDPI</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- MOD B -->
-        <div class="sub-card">
-          <h3>Mod B: Tam Adaptif Mobil Düzen (Quiz / Eşleştirme)</h3>
-          <p class="muted" style="font-size:0.9rem;">
-            Soru-cevap ve eşleştirmede düzen cihaza göre akar; geri bildirim renk + ikon ile verilir.
-          </p>
-          <div style="background:var(--surface); padding:14px; border-radius:14px; border:var(--border);">
-            <strong>Soru:</strong> Aşağıdakilerden hangisi <strong>1/2</strong> kesrine denktir?
-            <div class="quiz-options" id="quiz-options">
-              <button class="opt-btn" data-ok="0" type="button">2/6</button>
-              <button class="opt-btn" data-ok="1" type="button">2/4</button>
-              <button class="opt-btn" data-ok="0" type="button">3/5</button>
-              <button class="opt-btn" data-ok="0" type="button">1/3</button>
-            </div>
-            <div id="quiz-feedback" class="feedback-box">
-              <span>Bir seçenek seçerek geri bildirimi test et.</span>
+          <!-- MOD B -->
+          <div class="sub-card">
+            <h3>Mod B: Tam Adaptif Mobil Düzen (Quiz / Eşleştirme)</h3>
+            <p class="muted" style="font-size:0.9rem;">
+              Soru-cevap ve eşleştirmede düzen cihaza göre akar; geri bildirim renk + ikon ile verilir.
+            </p>
+            <div style="background:var(--surface); padding:14px; border-radius:14px; border:var(--border);">
+              <strong>Soru:</strong> Aşağıdakilerden hangisi <strong>1/2</strong> kesrine denktir?
+              <div class="quiz-options" id="quiz-options">
+                <button class="opt-btn" data-ok="0" type="button">2/6</button>
+                <button class="opt-btn" data-ok="1" type="button">2/4</button>
+                <button class="opt-btn" data-ok="0" type="button">3/5</button>
+                <button class="opt-btn" data-ok="0" type="button">1/3</button>
+              </div>
+              <div id="quiz-feedback" class="feedback-box">
+                <span>Bir seçenek seçerek geri bildirimi test et.</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- BÖLÜM 3: WEB AUDIO SFX & İKONLAR -->
+    <!-- BÖLÜM 3: ÖZEL SESLER, BGM & OFFLINE SVG İKONLAR -->
     <section class="panel">
-      <h2>3. Sıfır Bağımlılıklı Web Audio SFX &amp; Offline SVG İkonlar</h2>
+      <h2>3. Özel Ses Kütüphanesi, Arka Plan Müziği (BGM) &amp; Offline SVG İkonlar</h2>
       <div class="grid-2">
         <div class="sub-card">
-          <h3>Prosedürel Ses Sentezleyici (<code>audio-synth.js</code>)</h3>
-          <p class="muted" style="font-size:0.9rem;">Harici MP3/WAV dosyası olmadan tarayıcıda anında sentezlenir.</p>
-          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;">
-            <button class="btn" id="sfx-click" type="button">Click</button>
-            <button class="btn btn--accent" id="sfx-jump" type="button">Jump</button>
-            <button class="btn btn--warn" id="sfx-correct" type="button">Correct (Combo: <span id="combo-num">1</span>)</button>
-            <button class="btn btn--danger" id="sfx-wrong" type="button">Wrong</button>
-            <button class="btn" id="sfx-win" type="button">Win Fanfare</button>
+          <h3>Gerçek Ses Efektleri (<code>assets/sounds/</code> + Web Audio Fallback)</h3>
+          <p class="muted" style="font-size:0.88rem;">Butonlara tıklayarak eklediğin UI, Feedback ve SFX seslerini doğrudan dinleyebilirsin.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;">
+            <button class="btn" data-sound="../assets/sounds/ui/click.mp3" data-fb="click" type="button">Click</button>
+            <button class="btn" data-sound="../assets/sounds/ui/pop.mp3" data-fb="click" type="button">Pop</button>
+            <button class="btn" data-sound="../assets/sounds/ui/card-flip.mp3" data-fb="click" type="button">Card Flip</button>
+            <button class="btn" data-sound="../assets/sounds/ui/page-flip.mp3" data-fb="click" type="button">Page Flip</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/jump.mp3" data-fb="jump" type="button">Jump</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/hit.mp3" data-fb="wrong" type="button">Hit</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/swoosh.mp3" data-fb="click" type="button">Swoosh</button>
+            <button class="btn btn--accent" data-sound="../assets/sounds/sfx/spin.mp3" data-fb="jump" type="button">Spin</button>
+            <button class="btn btn--warn" id="sfx-correct" data-sound="../assets/sounds/feedback/correct.mp3" data-fb="correct" type="button">Correct (Combo: <span id="combo-num">1</span>)</button>
+            <button class="btn btn--danger" id="sfx-wrong" data-sound="../assets/sounds/feedback/incorrect.mp3" data-fb="wrong" type="button">Incorrect</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/collect.mp3" data-fb="correct" type="button">Collect</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/bonus.mp3" data-fb="win" type="button">Bonus</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/level-up.mp3" data-fb="win" type="button">Level Up</button>
+            <button class="btn" data-sound="../assets/sounds/feedback/game-complete.mp3" data-fb="win" type="button">Game Complete</button>
+          </div>
+
+          <h3 style="margin-top:10px;">Arka Plan Müziği (BGM) Testi</h3>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <button class="style-btn" data-bgm="../assets/sounds/bgm/kids-music.mp3" type="button">Kids Music</button>
+            <button class="style-btn" data-bgm="../assets/sounds/bgm/soft-guitar.mp3" type="button">Soft Guitar</button>
+            <button class="style-btn" data-bgm="../assets/sounds/bgm/retro.mp3" type="button">Retro</button>
+            <button class="style-btn" data-bgm="../assets/sounds/bgm/funk.mp3" type="button">Funk</button>
+            <button class="style-btn" id="bgm-stop" type="button">Müziği Durdur</button>
           </div>
         </div>
 
@@ -723,9 +800,25 @@
       });
     });
 
-    // 5. Web Audio SFX Demo
+    // 5. Gerçek Sesler + Web Audio Fallback + BGM + Global Mute
+    let isMuted = false;
+    let activeBgm = null;
+    const muteBtn = document.getElementById('global-mute-btn');
+    const muteLabel = document.getElementById('mute-label');
+    const muteIcon = document.getElementById('mute-icon');
+    const iconVolUp = '<path d="M14 20.725v-2.05q2.25-.65 3.625-2.5t1.375-4.2q0-2.35-1.375-4.2T14 5.275v-2.05q3.1.7 5.05 3.137T21 11.975q0 3.175-1.95 5.613T14 20.725ZM3 15V9h4l5-5v16l-5-5H3Z"/>';
+    const iconVolOff = '<path d="m19.8 22.6-3.025-3.025q-.625.4-1.325.688t-1.45.462v-2.05q.35-.125.688-.25t.637-.3L12 14.8V20l-5-5H3V9h3.2L1.4 4.2l1.4-1.4 18.4 18.4-1.4 1.4Z"/>';
+
+    muteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      muteLabel.textContent = isMuted ? 'Ses Kapalı' : 'Ses Açık';
+      muteIcon.innerHTML = isMuted ? iconVolOff : iconVolUp;
+      if (activeBgm) activeBgm.muted = isMuted;
+    });
+
     let audioCtx = null;
     function playTone(freq, endFreq, duration, type = 'sine', delay = 0) {
+      if (isMuted) return;
       const AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return;
       if (!audioCtx) audioCtx = new AC();
@@ -745,23 +838,66 @@
       osc.stop(now + duration + 0.02);
     }
 
+    function playFallback(fb) {
+      if (fb === 'jump') playTone(260, 620, 0.16, 'sine');
+      else if (fb === 'wrong') playTone(240, 140, 0.22, 'triangle');
+      else if (fb === 'win') [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, null, 0.18, 'triangle', i * 0.09));
+      else if (fb === 'correct') { playTone(523.25, null, 0.1, 'sine', 0); playTone(654, null, 0.16, 'sine', 0.07); }
+      else playTone(520, 320, 0.06, 'triangle');
+    }
+
+    function playSoundFile(url, fb = 'click') {
+      if (isMuted) return;
+      const a = new Audio(url);
+      a.volume = 0.75;
+      a.play().catch(() => playFallback(fb));
+    }
+
     let combo = 1;
-    document.getElementById('sfx-click').addEventListener('click', () => playTone(520, 320, 0.06, 'triangle'));
-    document.getElementById('sfx-jump').addEventListener('click', () => playTone(260, 620, 0.16, 'sine'));
-    document.getElementById('sfx-correct').addEventListener('click', () => {
-      const base = 523.25 * Math.min(1.5, 1 + (combo - 1) * 0.06);
-      playTone(base, null, 0.1, 'sine', 0);
-      playTone(base * 1.25, null, 0.16, 'sine', 0.07);
-      combo = combo >= 5 ? 1 : combo + 1;
-      document.getElementById('combo-num').textContent = String(combo);
+    document.querySelectorAll('[data-sound]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (btn.id === 'sfx-correct') {
+          combo = combo >= 5 ? 1 : combo + 1;
+          document.getElementById('combo-num').textContent = String(combo);
+        } else if (btn.id === 'sfx-wrong') {
+          combo = 1;
+          document.getElementById('combo-num').textContent = '1';
+        }
+        playSoundFile(btn.dataset.sound, btn.dataset.fb);
+      });
     });
-    document.getElementById('sfx-wrong').addEventListener('click', () => {
-      combo = 1;
-      document.getElementById('combo-num').textContent = '1';
-      playTone(240, 140, 0.22, 'triangle');
+
+    document.querySelectorAll('[data-bgm]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-bgm]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        if (activeBgm) activeBgm.pause();
+        activeBgm = new Audio(btn.dataset.bgm);
+        activeBgm.loop = true;
+        activeBgm.volume = 0.28;
+        activeBgm.muted = isMuted;
+        activeBgm.play().catch(() => {});
+      });
     });
-    document.getElementById('sfx-win').addEventListener('click', () => {
-      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, null, 0.18, 'triangle', i * 0.09));
+
+    document.getElementById('bgm-stop').addEventListener('click', () => {
+      document.querySelectorAll('[data-bgm]').forEach(b => b.classList.remove('is-active'));
+      if (activeBgm) { activeBgm.pause(); activeBgm.currentTime = 0; }
+    });
+
+    // Cihaz Önizleme Değiştirici
+    const deviceFrame = document.getElementById('device-frame');
+    const deviceWidths = { desktop: '100%', tablet: '768px', 'mobile-p': '375px', 'mobile-l': '667px' };
+    document.querySelectorAll('[data-device]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-device]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const mode = btn.dataset.device;
+        deviceFrame.style.maxWidth = deviceWidths[mode];
+        deviceFrame.classList.toggle('is-framed', mode !== 'desktop');
+        deviceFrame.classList.toggle('is-mobile', mode === 'mobile-p' || mode === 'mobile-l');
+        setTimeout(resizeMiniCanvas, 270);
+      });
     });
 
     // 6. SCORM / postMessage Simülasyonu
