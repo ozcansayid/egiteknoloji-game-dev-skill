@@ -36,16 +36,19 @@
 **Tüm projelerde geçerli (Global) kurulum:**
 ```bash
 # macOS / Linux
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git ~/.gemini/config/skills/egiteknolojilab-game-dev
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git \
+  ~/.gemini/config/skills/egiteknolojilab-game-dev
 ```
 ```powershell
 # Windows (PowerShell)
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git "$env:USERPROFILE\.gemini\config\skills\egiteknolojilab-game-dev"
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git `
+  "$env:USERPROFILE\.gemini\config\skills\egiteknolojilab-game-dev"
 ```
 
 **Yalnızca tek bir proje klasörü için kurulum:**
 ```bash
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git .agents/skills/egiteknolojilab-game-dev
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git \
+  .agents/skills/egiteknolojilab-game-dev
 ```
 
 ---
@@ -54,16 +57,19 @@ git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git .agents/
 **Tüm projelerde geçerli (Global) kurulum:**
 ```bash
 # macOS / Linux
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git ~/.claude/skills/egiteknolojilab-game-dev
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git \
+  ~/.claude/skills/egiteknolojilab-game-dev
 ```
 ```powershell
 # Windows (PowerShell)
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git "$env:USERPROFILE\.claude\skills\egiteknolojilab-game-dev"
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git `
+  "$env:USERPROFILE\.claude\skills\egiteknolojilab-game-dev"
 ```
 
 **Proje bazlı kurulum:**
 ```bash
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git .claude/skills/egiteknolojilab-game-dev
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git \
+  .claude/skills/egiteknolojilab-game-dev
 ```
 
 ---
@@ -72,11 +78,13 @@ git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git .claude/
 Cursor'da proje kök dizinindeki `.cursor/skills/` (veya `.agents/skills/`) klasörüne yükleyebilirsiniz:
 ```bash
 # macOS / Linux / Git Bash
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git .cursor/skills/egiteknolojilab-game-dev
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git \
+  .cursor/skills/egiteknolojilab-game-dev
 ```
 ```powershell
 # Windows (PowerShell)
-git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git ".cursor\skills\egiteknolojilab-game-dev"
+git clone https://github.com/ozcansayid/egiteknoloji-game-dev-skill.git `
+  ".cursor\skills\egiteknolojilab-game-dev"
 ```
 > İpucu: Cursor ayarlarından **Agent Skills** özelliğinin açık olduğundan emin olun; ardından sohbette `/egiteknolojilab-game-dev` veya doğal dille çağırabilirsiniz.
 
@@ -139,10 +147,14 @@ Geliştirdiğiniz oyun klasörünü yayınlamaya hazır hale getirmek için `scr
 
 ```bash
 # Standart küçük boyutlu Web ZIP çıktısı
-python scripts/package_build.py --src ./oyun-klasoru --out ./dist/oyun-web.zip --mode web
-
+python scripts/package_build.py \
+  --src ./oyun-klasoru --out ./dist/oyun-web.zip --mode web
+```
+```bash
 # SCORM 1.2 uyumlu LMS ZIP çıktısı (imsmanifest.xml otomatik eklenir)
-python scripts/package_build.py --src ./oyun-klasoru --out ./dist/oyun-scorm12.zip --mode scorm12 --title "Kesir Avcısı"
+python scripts/package_build.py \
+  --src ./oyun-klasoru --out ./dist/oyun-scorm12.zip \
+  --mode scorm12 --title "Kesir Avcısı"
 ```
 
 ---
@@ -157,3 +169,5 @@ Bu proje **MIT Lisansı** altında ücretsiz ve açık kaynaklı olarak sunulmak
 
 - **Geliştirici:** Sayid Özcan — [LinkedIn](https://www.linkedin.com/in/ozcansayid/) | [sayidozcan.com](https://www.sayidozcan.com)
 - **Platformlar:** [egiteknoloji.com](https://egiteknoloji.com) • [egiteknolojilab.com](https://egiteknolojilab.com)
+
+> Bu skill'i faydalı bulduysanız sağ üstten **⭐ Star** vererek destek olabilirsiniz!
