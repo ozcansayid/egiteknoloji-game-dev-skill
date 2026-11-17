@@ -21,18 +21,23 @@ Oyun ve arayüz ikonları için birincil standart **Google Material Symbols Roun
 
 ## 2. Özel Ses Kütüphanesi (`assets/sounds/`) ve Web Audio SFX
 
-### A. Özel Ses Klasörü Önceliği (`assets/sounds/`)
-Skill içindeki `assets/sounds/` (`ui/`, `feedback/`, `sfx/`, `bgm/`) klasöründe kullanıcının eklediği ses dosyaları varsa:
-1. Oyun üretmeden önce `assets/sounds/` klasörünü listele ve temaya uygun sesleri tespit et.
-2. Küçük boyut kuralını korumak için **yalnızca o oyunda kullanılacak ses dosyalarını** yeni oyunun `assets/sounds/` klasörüne kopyala (tüm arşivi kopyalama).
-3. `sfx.loadBank({ click: 'assets/sounds/ui/click.mp3', ... })` ile bağla. Dosyası eklenmemiş efektler için `audio-synth.js` otomatik olarak prosedürel Web Audio sentezine düşer (fallback).
+### A. Mevcut Ses Kataloğu (`assets/sounds/`)
+Skill içindeki hazır ses dosyaları şunlardır; yeni bir oyun üretilirken **yalnızca o oyunda kullanılacak sesler** yeni oyunun `assets/sounds/` klasörüne kopyalanır:
 
-### B. Sıfır Bağımlılıklı Web Audio SFX (`templates/core/audio-synth.js`)
+- **UI (`ui/`):** `click.mp3`, `hover.mp3`, `pop.mp3`, `card-flip.mp3`, `page-flip.mp3`
+- **Geri Bildirim (`feedback/`):** `correct.mp3`, `incorrect.mp3`, `collect.mp3`, `bonus.mp3`, `level-up.mp3`, `game-complete.mp3`, `game-complete-1.mp3`
+- **Oyun Mekaniği (`sfx/`):** `jump.mp3`, `hit.mp3`, `spin.mp3`, `swoosh.mp3`
+- **Arka Plan Müziği (`bgm/`):**
+  - `kids-music.mp3` → Okul Öncesi / İlkokul (3–10 yaş), *ClassDojo*, *Duolingo*, *Soft Toymorphism*
+  - `soft-guitar.mp3` → Rahatlatıcı / Bulmaca / Eşleştirme, *Claymorphism*, *Cozy Puzzle*, *Minimalist*
+  - `retro.mp3` → Arcade / Platformer / Aksiyon, *Dark Casual*, *Retro*
+  - `funk.mp3` → Hızlı Quiz / Yarışma, *Kahoot Flat*, *Fresh Hex-Grid*
 
-Harici ses dosyası yoksa veya eksikse efektler `AudioContext` ile anında sentezlenir.
-- **Autoplay Kilidi:** İlk `pointerdown` veya `keydown` olayında `audio.unlock()` otomatik çağrılır.
-- **Pitch Escalation:** `sfx.coin(combo)` veya `sfx.correct(streak)` çağrılarında ardışık doğrularda ses frekansı hafifçe yükselir (oyuncu motivasyonunu artırır).
-- **Mute Desteği:** HUD'da her zaman tek tıkla aç/kapa yapılabilen bir ses butonu bulunur ve tercih `localStorage` içinde saklanır.
+### B. Zorunlu Ses Aç/Kapat (Mute) Butonu & BGM Kuralları
+- **Zorunlu Mute Butonu:** İster sadece SFX ister BGM kullanılsın, **her oyunun HUD üst barında** tek tıkla erişilebilir **Ses Aç/Kapat (`volume_up` / `volume_off`)** butonu **mutlaka** yer almalıdır.
+- **Arka Plan Müziği (BGM):** Oyun temasına uygun `bgm/*.mp3` dosyası `sfx.playBgm('assets/sounds/bgm/retro.mp3', { volume: 0.25 })` ile düşük ses seviyesinde eklenebilir (ilk kullanıcı tıklamasında `sfx.unlock()` ile başlar).
+- **Hibrit Fallback (`templates/core/audio-synth.js`):** `sfx.loadBank(...)` ile gerçek dosyalar bağlanır; dosyası olmayan efektlerde otomatik Web Audio sentezine düşülür. `correct(combo)` çağrısında ardışık doğrularda ton hafifçe tizleşir (*pitch escalation*).
+- **Durum Kalıcılığı:** Mute tercihi `localStorage` (`egilab_muted`) içinde saklanır.
 
 ---
 

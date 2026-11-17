@@ -62,9 +62,10 @@ Kodlamaya geçmeden önce kısaca şunları özetle ve hemen üretime başla:
    - Oyun dünyası, fizik ve parçacıklar `<canvas>` üzerinde; menüler, skor/süre sayaçları, yönerge kartları ve butonlar HTML/CSS HUD katmanında (`pointer-events: none` kapsayıcı, butonlarda `pointer-events: auto`) tutulur.
 2. **Dikkat Dağıtıcı Ögelerden Kaçınma (Clean EdTech):**
    - Karmaşık, yanıp sönen, dikkat dağıtan fazla rozet (badge), gereksiz bildirim baloncukları ve agresif uyarılar **kullanılmaz**. Arayüz öğrenme hedefine odaklanır; HUD ekranın en fazla **%10–15**'ini kaplar.
-3. **Sıfır Ağır Bağımlılık & Offline Güvenlik:**
+3. **Sıfır Ağır Bağımlılık, Hazır Sesler & Zorunlu Mute Butonu:**
    - Ağır oyun motorları (Phaser vb.) yerine Vanilla JS kullanılır.
    - İkonlar için Google Material Rounded Filled tarzında **inline SVG** tercih edilir; böylece SCORM/okul ağlarında internet olmasa bile ikonlar kırılmaz.
+   - `assets/sounds/` içindeki uyumlu sesler (UI, feedback, SFX ve temaya uygun BGM) yalnızca gereken dosyalar kopyalanarak kullanılır; **HUD'da her zaman görünür bir Ses Aç/Kapat (Mute) butonu bulunması zorunludur.**
 4. **Erişilebilirlik (a11y):**
    - Doğru/yanlış geri bildirimleri **sadece renkle değil**, ikon/şekil ile de verilir.
    - `prefers-reduced-motion: reduce` aktifse ekran sarsıntısı ve yoğun parçacıklar kapatılır.
