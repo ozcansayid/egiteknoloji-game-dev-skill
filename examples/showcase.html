@@ -478,7 +478,7 @@
       <h2>3. Özel Ses Kütüphanesi, Arka Plan Müziği (BGM) &amp; Offline SVG İkonlar</h2>
       <div class="grid-2">
         <div class="sub-card">
-          <h3>Gerçek Ses Efektleri (<code>assets/sounds/</code> + Web Audio Fallback)</h3>
+          <h3>Gerçek Ses Efektleri (<code>assets/sounds/</code>)</h3>
           <p class="muted" style="font-size:0.88rem;">Butonlara tıklayarak eklediğin UI, Feedback ve SFX seslerini doğrudan dinleyebilirsin.</p>
           <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;">
             <button class="btn" data-sound="../assets/sounds/ui/click.mp3" data-fb="click" type="button">Click</button>
@@ -687,7 +687,7 @@
       btn.type = 'button';
       btn.className = 'chip-btn';
       btn.textContent = t.name;
-      btn.addEventListener('click', () => { playTone(520, 320, 0.06, 'triangle'); applyTheme(i); });
+      btn.addEventListener('click', () => { playSoundFile('../assets/sounds/ui/click.mp3'); applyTheme(i); });
       switcher.appendChild(btn);
     });
     applyTheme(0);
@@ -734,7 +734,7 @@
       if (dist <= orb.r * 1.25) {
         cScore += 10;
         scoreEl.textContent = String(cScore);
-        playTone(587, 880, 0.12, 'sine');
+        playSoundFile('../assets/sounds/feedback/collect.mp3');
         for (let i = 0; i < 10; i++) {
           const a = (Math.PI * 2 * i) / 10;
           sparks.push({ x: orb.x, y: orb.y, vx: Math.cos(a) * 120, vy: Math.sin(a) * 120, life: 0.45 });
@@ -790,11 +790,11 @@
         document.querySelectorAll('#quiz-options .opt-btn').forEach(b => b.classList.remove('is-ok', 'is-err'));
         if (btn.dataset.ok === '1') {
           btn.classList.add('is-ok');
-          playTone(523.25, 659.25, 0.14, 'sine');
+          playSoundFile('../assets/sounds/feedback/correct.mp3');
           quizFeedback.innerHTML = '✅ Harika! 1/2 kesrinin pay ve paydasını 2 ile genişletirsek 2/4 olur.';
         } else {
           btn.classList.add('is-err');
-          playTone(240, 140, 0.2, 'triangle');
+          playSoundFile('../assets/sounds/feedback/incorrect.mp3');
           quizFeedback.innerHTML = '💡 İpucu: Pay ve paydayı aynı sayıyla çarparak denk kesir bulabilirsin!';
         }
       });
@@ -816,41 +816,11 @@
       if (activeBgm) activeBgm.muted = isMuted;
     });
 
-    let audioCtx = null;
-    function playTone(freq, endFreq, duration, type = 'sine', delay = 0) {
-      if (isMuted) return;
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return;
-      if (!audioCtx) audioCtx = new AC();
-      if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
-      const now = audioCtx.currentTime + delay;
-      const osc = audioCtx.createOscillator();
-      const amp = audioCtx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, now);
-      if (endFreq) osc.frequency.exponentialRampToValueAtTime(Math.max(20, endFreq), now + duration);
-      amp.gain.setValueAtTime(0.001, now);
-      amp.gain.linearRampToValueAtTime(0.16, now + 0.01);
-      amp.gain.exponentialRampToValueAtTime(0.001, now + duration);
-      osc.connect(amp);
-      amp.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + duration + 0.02);
-    }
-
-    function playFallback(fb) {
-      if (fb === 'jump') playTone(260, 620, 0.16, 'sine');
-      else if (fb === 'wrong') playTone(240, 140, 0.22, 'triangle');
-      else if (fb === 'win') [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, null, 0.18, 'triangle', i * 0.09));
-      else if (fb === 'correct') { playTone(523.25, null, 0.1, 'sine', 0); playTone(654, null, 0.16, 'sine', 0.07); }
-      else playTone(520, 320, 0.06, 'triangle');
-    }
-
-    function playSoundFile(url, fb = 'click') {
+    function playSoundFile(url) {
       if (isMuted) return;
       const a = new Audio(url);
-      a.volume = 0.75;
-      a.play().catch(() => playFallback(fb));
+      a.volume = 0.8;
+      a.play().catch((err) => console.warn('Ses çalınamadı:', url, err));
     }
 
     let combo = 1;
@@ -863,7 +833,7 @@
           combo = 1;
           document.getElementById('combo-num').textContent = '1';
         }
-        playSoundFile(btn.dataset.sound, btn.dataset.fb);
+        playSoundFile(btn.dataset.sound);
       });
     });
 
