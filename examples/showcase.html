@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EgiteknolojiLab Skill — Tasarım Dilleri, Tipografi ve Etkinlik Türleri Vitrini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Fredoka:wght@500;600;700&family=Inter:wght@400;600;700&family=Nunito:wght@700;800;900&family=Patrick+Hand&family=Quicksand:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --primary: #58cc02;
+      --primary-edge: #46a302;
+      --accent: #1cb0f6;
+      --accent-edge: #1899d6;
+      --warn: #ffc800;
+      --danger: #ff4b4b;
+      --text: #3c3c3c;
+      --muted: #64748b;
+      --border: 2px solid #e5e5e5;
+      --shadow: 0 4px 0 #d4d4d4;
+      --radius: 18px;
+      --font-display: 'Nunito', 'Quicksand', system-ui, sans-serif;
+      --font-body: 'Quicksand', 'Nunito', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.55;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hud-counter {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: clamp(16px, 3vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Üst Başlık & Tema Seçici */
+    .hero {
+      background: var(--surface);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: clamp(20px, 3.5vw, 32px);
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--accent);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      line-height: 1.25;
+    }
+
+    h1 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin-bottom: 8px; }
+    h2 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); margin-bottom: 10px; }
+    h3 { font-size: 1.05rem; margin-bottom: 6px; }
+
+    .muted { color: var(--muted); }
+
+    .style-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .chip-btn {
+      min-height: 42px;
+      padding: 8px 14px;
+      border-radius: 9999px;
+      border: var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, background-color 0.15s ease;
+    }
+
+    .chip-btn:active { transform: scale(0.96); }
+
+    .chip-btn.is-active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-edge);
+    }
+
+    /* Kartlar & Grid */
+    .panel {
+      background: var(--surface);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: clamp(18px, 3vw, 26px);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    @media (min-width: 820px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .sub-card {
+      background: var(--surface-soft);
+      border: var(--border);
+      border-radius: calc(var(--radius) - 4px);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 10px 18px;
+      border: none;
+      border-bottom: 4px solid var(--primary-edge);
+      border-radius: 14px;
+      background: var(--primary);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.08s ease;
+    }
+
+    .btn:active { transform: translateY(2px); }
+    .btn--accent { background: var(--accent); border-bottom-color: var(--accent-edge); }
+    .btn--warn { background: var(--warn); border-bottom-color: #d97706; color: #1e293b; }
+    .btn--danger { background: var(--danger); border-bottom-color: #b91c1c; }
+
+    /* Mod A: 16:9 Mini Canvas */
+    .stage-16-9-demo {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      border: var(--border);
+    }
+
+    .stage-16-9-demo canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+
+    .stage-hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #0f172a;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Mod B: Adaptif Quiz / Eşleştirme Mini Demo */
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .opt-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 54px;
+      padding: 10px;
+      border-radius: 14px;
+      border: var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+    }
+
+    .opt-btn.is-ok { background: #dcfce7; border-color: #22c55e; color: #14532d; }
+    .opt-btn.is-err { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
+
+    .feedback-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: var(--border);
+      font-size: 0.92rem;
+      font-weight: 600;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* İkon Galerisi */
+    .icon-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .icon-tile {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      border: var(--border);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .icon-tile svg { width: 22px; height: 22px; }
+
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 14px;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .palette-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      border: 2px solid rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HERO & TASARIM DİLİ SEÇİCİ -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">egiteknolojilab-game-dev • Canlı Vitrin</span>
+        <span id="active-style-label" class="muted" style="font-weight:700;">Aktif Stil: Duolingo Tactile</span>
+      </div>
+      <h1>Eğitsel Oyun Tasarım Dilleri &amp; Bileşen Vitrini</h1>
+      <p class="muted">
+        Aşağıdaki butonlara tıklayarak tüm sayfayı farklı tasarım dillerine anında dönüştürebilir, yaş grubu tipografilerini,
+        Mod A (16:9 Canvas) / Mod B (Adaptif) etkinlik türlerini, Web Audio SFX sentezini ve SCORM 1.2 çıktısını canlı test edebilirsiniz.
+      </p>
+
+      <div class="style-switcher" id="style-switcher" role="group" aria-label="Tasarım Dili Seçici"></div>
+
+      <div class="palette-dots" id="palette-dots" aria-label="Aktif Renk Paleti"></div>
+    </header>
+
+    <!-- BÖLÜM 1: TİPOGRAFİ & YAŞ MATRİSİ -->
+    <section class="panel">
+      <h2>1. Yaş Grubuna Göre Tipografi &amp; Okunabilirlik Matrisi</h2>
+      <p class="muted" style="margin-bottom:14px;">
+        Her yaş grubu için SIL OFL lisanslı açık formlu Google Fonts ailesi, uygun <code>clamp()</code> punto aralığı ve rakam zıplamasını önleyen <code>tabular-nums</code> kullanılır.
+      </p>
+      <div class="grid-4">
+        <div class="sub-card" style="font-family: 'Fredoka', sans-serif;">
+          <span class="badge" style="width:fit-content;">3–6 Yaş • Okul Öncesi</span>
+          <strong style="font-size:1.35rem;">Fredoka / Delius</strong>
+          <p>Tek katlı "a" ve "g" harfleri, minimum 19–20px gövde, 56px+ dokunma hedefi.</p>
+        </div>
+        <div class="sub-card" style="font-family: 'Quicksand', sans-serif;">
+          <span class="badge" style="width:fit-content;">7–10 Yaş • İlkokul</span>
+          <strong style="font-size:1.25rem;">Quicksand / Nunito</strong>
+          <p>Okuma hızını koruyan keskin harf sınırları, 17–21px soru metni.</p>
+        </div>
+        <div class="sub-card" style="font-family: 'Comfortaa', sans-serif;">
+          <span class="badge" style="width:fit-content;">11–15 Yaş • Ortaokul</span>
+          <strong style="font-size:1.15rem;">Comfortaa / Nunito</strong>
+          <p>Çocuksu olmayan modern arcade, bilim ve strateji estetiği (15–18px).</p>
+        </div>
+        <div class="sub-card" style="font-family: 'Inter', sans-serif;">
+          <span class="badge" style="width:fit-content;">16+ Yaş • Lise &amp; Yetişkin</span>
+          <strong style="font-size:1.1rem;">Inter / Plus Jakarta Sans</strong>
+          <p>Yüksek bilgi yoğunluğuna uygun neo-grotesk tipografi (15–17px).</p>
+        </div>
+      </div>
+
+      <div class="sub-card" style="margin-top:14px; flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+        <div>
+          <strong>Tabular-Nums Sayaç Testi:</strong>
+          <span class="muted">Rakamlar değişirken kutu genişliği asla zıplamaz.</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span id="tabular-demo" class="pill hud-counter" style="font-size:1.15rem; border:var(--border);">00420</span>
+          <button id="tabular-toggle" class="btn btn--accent" type="button">Sayacı Başlat / Durdur</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BÖLÜM 2: ETKİNLİK TÜRLERİ (MOD A vs MOD B) -->
+    <section class="panel">
+      <h2>2. Etkinlik Türleri: Mod A (16:9 Kilitli) vs Mod B (Tam Adaptif)</h2>
+      <div class="grid-2">
+        <!-- MOD A -->
+        <div class="sub-card">
+          <h3>Mod A: 16:9 Kilitli Canvas Sahne (Arcade / Simülasyon)</h3>
+          <p class="muted" style="font-size:0.9rem;">
+            Fizik, yakalama veya koordinat hassasiyeti gerektiren oyunlarda sanal çözünürlük (1280×720) korunur. Yıldızlara tıkla!
+          </p>
+          <div class="stage-16-9-demo">
+            <canvas id="mini-canvas"></canvas>
+            <div class="stage-hud">
+              <span class="pill hud-counter">Skor: <span id="canvas-score">0</span></span>
+              <span class="pill">16:9 HiDPI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOD B -->
+        <div class="sub-card">
+          <h3>Mod B: Tam Adaptif Mobil Düzen (Quiz / Eşleştirme)</h3>
+          <p class="muted" style="font-size:0.9rem;">
+            Soru-cevap ve eşleştirmede düzen cihaza göre akar; geri bildirim renk + ikon ile verilir.
+          </p>
+          <div style="background:var(--surface); padding:14px; border-radius:14px; border:var(--border);">
+            <strong>Soru:</strong> Aşağıdakilerden hangisi <strong>1/2</strong> kesrine denktir?
+            <div class="quiz-options" id="quiz-options">
+              <button class="opt-btn" data-ok="0" type="button">2/6</button>
+              <button class="opt-btn" data-ok="1" type="button">2/4</button>
+              <button class="opt-btn" data-ok="0" type="button">3/5</button>
+              <button class="opt-btn" data-ok="0" type="button">1/3</button>
+            </div>
+            <div id="quiz-feedback" class="feedback-box">
+              <span>Bir seçenek seçerek geri bildirimi test et.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BÖLÜM 3: WEB AUDIO SFX & İKONLAR -->
+    <section class="panel">
+      <h2>3. Sıfır Bağımlılıklı Web Audio SFX &amp; Offline SVG İkonlar</h2>
+      <div class="grid-2">
+        <div class="sub-card">
+          <h3>Prosedürel Ses Sentezleyici (<code>audio-synth.js</code>)</h3>
+          <p class="muted" style="font-size:0.9rem;">Harici MP3/WAV dosyası olmadan tarayıcıda anında sentezlenir.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;">
+            <button class="btn" id="sfx-click" type="button">Click</button>
+            <button class="btn btn--accent" id="sfx-jump" type="button">Jump</button>
+            <button class="btn btn--warn" id="sfx-correct" type="button">Correct (Combo: <span id="combo-num">1</span>)</button>
+            <button class="btn btn--danger" id="sfx-wrong" type="button">Wrong</button>
+            <button class="btn" id="sfx-win" type="button">Win Fanfare</button>
+          </div>
+        </div>
+
+        <div class="sub-card">
+          <h3>Inline Material Rounded SVG İkonlar</h3>
+          <p class="muted" style="font-size:0.9rem;">SCORM ve kapalı okul ağlarında ikon fontu kırılmalarını önler.</p>
+          <div class="icon-row">
+            <span class="icon-tile">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 19V5l11 7-11 7Z"/></svg>
+              Play
+            </span>
+            <span class="icon-tile">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 19V5h4v14h-4Zm-8 0V5h4v14H6Z"/></svg>
+              Pause
+            </span>
+            <span class="icon-tile">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20q-3.35 0-5.675-2.325T4 12q0-3.35 2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.188-2.2T12 6Q9.5 6 7.75 7.75T6 12q0 2.5 1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20Z"/></svg>
+              Replay
+            </span>
+            <span class="icon-tile">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m10.6 16.6 7.05-7.05-1.4-1.4-5.65 5.65-2.85-2.85-1.4 1.4 4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
+              Check
+            </span>
+            <span class="icon-tile">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 20.725v-2.05q2.25-.65 3.625-2.5t1.375-4.2q0-2.35-1.375-4.2T14 5.275v-2.05q3.1.7 5.05 3.137T21 11.975q0 3.175-1.95 5.613T14 20.725ZM3 15V9h4l5-5v16l-5-5H3Z"/></svg>
+              Volume
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BÖLÜM 4: SCORM 1.2 & POSTMESSAGE -->
+    <section class="panel">
+      <h2>4. SCORM 1.2 &amp; <code>postMessage</code> Entegrasyon Çıktısı</h2>
+      <p class="muted" style="margin-bottom:10px;">
+        Oyun LMS ortamında (Moodle, EBA, Canvas) SCORM 1.2 API'sini otomatik algılar; iframe içinde ise ana pencereye <code>postMessage</code> gönderir.
+      </p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+        <button class="btn" id="sim-progress" type="button">İlerleme Gönder (%50)</button>
+        <button class="btn btn--accent" id="sim-complete" type="button">Tamamlama Gönder (%90 Geçti)</button>
+      </div>
+      <pre id="scorm-output">{
+  "source": "egiteknolojilab",
+  "event": "GAME_PROGRESS",
+  "score": 50,
+  "maxScore": 100,
+  "passed": false,
+  "completed": false,
+  "durationSec": 18
+}</pre>
+    </section>
+  </div>
+
+  <script>
+    // 1. Tasarım Dilleri Veri Tablosu
+    const THEMES = [
+      {
+        name: 'Duolingo Tactile',
+        vars: {
+          '--bg': '#F7F7F7', '--surface': '#FFFFFF', '--surface-soft': '#F1F5F9',
+          '--primary': '#58CC02', '--primary-edge': '#46A302',
+          '--accent': '#1CB0F6', '--accent-edge': '#1899D6',
+          '--warn': '#FFC800', '--danger': '#FF4B4B',
+          '--text': '#3C3C3C', '--muted': '#64748B',
+          '--border': '2px solid #E5E5E5', '--shadow': '0 4px 0 #D4D4D4', '--radius': '18px',
+          '--font-display': "'Nunito', sans-serif", '--font-body': "'Quicksand', sans-serif"
+        },
+        dots: ['#F7F7F7', '#58CC02', '#1CB0F6', '#FFC800', '#FF4B4B']
+      },
+      {
+        name: 'Soft Toymorphism',
+        vars: {
+          '--bg': '#FFF5DE', '--surface': '#FFFFFF', '--surface-soft': '#FFFBF0',
+          '--primary': '#FF8C3B', '--primary-edge': '#D96B1E',
+          '--accent': '#3B72FF', '--accent-edge': '#2554D4',
+          '--warn': '#2DD4BF', '--danger': '#EF4444',
+          '--text': '#1E2A4A', '--muted': '#5B6785',
+          '--border': '2px solid #F3E4C8', '--shadow': '0 10px 24px rgba(30, 42, 74, 0.1)', '--radius': '26px',
+          '--font-display': "'Fredoka', sans-serif", '--font-body': "'Nunito', sans-serif"
+        },
+        dots: ['#FFF5DE', '#FF8C3B', '#3B72FF', '#2DD4BF', '#1E2A4A']
+      },
+      {
+        name: 'ClassDojo Vector',
+        vars: {
+          '--bg': '#C8EEFA', '--surface': '#FFFFFF', '--surface-soft': '#F0FAFF',
+          '--primary': '#7AC143', '--primary-edge': '#59982B',
+          '--accent': '#F15A24', '--accent-edge': '#C94112',
+          '--warn': '#FDB833', '--danger': '#E73B3B',
+          '--text': '#1E293B', '--muted': '#475569',
+          '--border': '2.5px solid #93D8F0', '--shadow': '0 6px 0 #7EC8E3', '--radius': '22px',
+          '--font-display': "'Fredoka', sans-serif", '--font-body': "'Quicksand', sans-serif"
+        },
+        dots: ['#C8EEFA', '#7AC143', '#F15A24', '#FDB833', '#4DBCE9']
+      },
+      {
+        name: 'Kahoot Flat',
+        vars: {
+          '--bg': '#46178F', '--surface': '#FFFFFF', '--surface-soft': '#F4F4F5',
+          '--primary': '#26890C', '--primary-edge': '#1B6607',
+          '--accent': '#1368CE', '--accent-edge': '#0D4FA0',
+          '--warn': '#FFA602', '--danger': '#E21B3C',
+          '--text': '#1E1E1E', '--muted': '#52525B',
+          '--border': '2px solid #E4E4E7', '--shadow': '0 4px 0 rgba(0,0,0,0.2)', '--radius': '12px',
+          '--font-display': "'Nunito', sans-serif", '--font-body': "'Inter', sans-serif"
+        },
+        dots: ['#46178F', '#E21B3C', '#1368CE', '#FFA602', '#26890C']
+      },
+      {
+        name: 'Hand-Drawn Doodle',
+        vars: {
+          '--bg': '#FFFDF7', '--surface': '#FFFFFF', '--surface-soft': '#FEF9C3',
+          '--primary': '#86EFAC', '--primary-edge': '#1F2937',
+          '--accent': '#93C5FD', '--accent-edge': '#1F2937',
+          '--warn': '#FDE047', '--danger': '#FDA4AF',
+          '--text': '#1F2937', '--muted': '#4B5563',
+          '--border': '2.5px solid #1F2937', '--shadow': '4px 4px 0 #1F2937', '--radius': '14px 18px 15px 16px',
+          '--font-display': "'Patrick Hand', cursive, sans-serif", '--font-body': "'Quicksand', sans-serif"
+        },
+        dots: ['#FFFDF7', '#1F2937', '#FDE047', '#93C5FD', '#86EFAC']
+      },
+      {
+        name: 'Dark Toymorphism',
+        vars: {
+          '--bg': '#0C1854', '--surface': '#132675', '--surface-soft': '#1B318E',
+          '--primary': '#2ECC40', '--primary-edge': '#1F9E2E',
+          '--accent': '#00A8FF', '--accent-edge': '#007EC2',
+          '--warn': '#F1C40F', '--danger': '#E91E63',
+          '--text': '#FFFFFF', '--muted': '#CBD5E1',
+          '--border': '2px solid #2A43A8', '--shadow': '0 6px 0 #07103B', '--radius': '18px',
+          '--font-display': "'Fredoka', sans-serif", '--font-body': "'Nunito', sans-serif"
+        },
+        dots: ['#0C1854', '#2ECC40', '#00A8FF', '#F1C40F', '#E91E63']
+      },
+      {
+        name: 'Claymorphism Cozy',
+        vars: {
+          '--bg': '#F6F2EC', '--surface': '#FFFFFF', '--surface-soft': '#FAF7F2',
+          '--primary': '#9C8CEB', '--primary-edge': '#7D6CD4',
+          '--accent': '#86C58D', '--accent-edge': '#5FA367',
+          '--warn': '#E6CCA8', '--danger': '#E06D8C',
+          '--text': '#3A334E', '--muted': '#6D6584',
+          '--border': '1px solid rgba(255,255,255,0.9)',
+          '--shadow': 'inset 0 2px 4px rgba(255,255,255,0.8), 0 10px 25px rgba(58,51,78,0.1)',
+          '--radius': '28px',
+          '--font-display': "'Quicksand', sans-serif", '--font-body': "'Inter', sans-serif"
+        },
+        dots: ['#F6F2EC', '#9C8CEB', '#86C58D', '#E6CCA8', '#3A334E']
+      },
+      {
+        name: 'Minimalist Scandinavian',
+        vars: {
+          '--bg': '#F0F1F5', '--surface': '#FFFFFF', '--surface-soft': '#E5E7EB',
+          '--primary': '#4B52C7', '--primary-edge': '#373D9E',
+          '--accent': '#00B4D8', '--accent-edge': '#008BA8',
+          '--warn': '#E9B44C', '--danger': '#E05344',
+          '--text': '#1E232A', '--muted': '#64748B',
+          '--border': '1px solid #DDE1E6', '--shadow': 'none', '--radius': '12px',
+          '--font-display': "'Inter', sans-serif", '--font-body': "'Inter', sans-serif"
+        },
+        dots: ['#F0F1F5', '#4B52C7', '#00B4D8', '#E9B44C', '#E05344']
+      }
+    ];
+
+    const switcher = document.getElementById('style-switcher');
+    const dotsEl = document.getElementById('palette-dots');
+    const styleLabel = document.getElementById('active-style-label');
+
+    function applyTheme(idx) {
+      const t = THEMES[idx];
+      Object.entries(t.vars).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
+      styleLabel.textContent = `Aktif Stil: ${t.name}`;
+      dotsEl.innerHTML = '<span class="muted" style="font-size:0.85rem;font-weight:700;">Palet:</span>' +
+        t.dots.map(c => `<span class="dot" style="background:${c}" title="${c}"></span>`).join('');
+      [...switcher.children].forEach((b, i) => b.classList.toggle('is-active', i === idx));
+    }
+
+    THEMES.forEach((t, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip-btn';
+      btn.textContent = t.name;
+      btn.addEventListener('click', () => { playTone(520, 320, 0.06, 'triangle'); applyTheme(i); });
+      switcher.appendChild(btn);
+    });
+    applyTheme(0);
+
+    // 2. Tabular Nums Sayacı
+    let tabTimer = null;
+    let tabVal = 420;
+    const tabEl = document.getElementById('tabular-demo');
+    document.getElementById('tabular-toggle').addEventListener('click', () => {
+      if (tabTimer) {
+        clearInterval(tabTimer);
+        tabTimer = null;
+      } else {
+        tabTimer = setInterval(() => {
+          tabVal = (tabVal + 137) % 100000;
+          tabEl.textContent = String(tabVal).padStart(5, '0');
+        }, 120);
+      }
+    });
+
+    // 3. Mod A: Mini 16:9 Canvas Oyunu
+    const canvas = document.getElementById('mini-canvas');
+    const ctx = canvas.getContext('2d');
+    const scoreEl = document.getElementById('canvas-score');
+    let cScore = 0;
+    const orb = { x: 180, y: 90, r: 22, vx: 110, vy: 85 };
+    const sparks = [];
+
+    function resizeMiniCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.round(rect.width * dpr));
+      canvas.height = Math.max(1, Math.round(rect.height * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resizeMiniCanvas();
+    window.addEventListener('resize', resizeMiniCanvas);
+
+    canvas.addEventListener('pointerdown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const dist = Math.hypot(x - orb.x, y - orb.y);
+      if (dist <= orb.r * 1.25) {
+        cScore += 10;
+        scoreEl.textContent = String(cScore);
+        playTone(587, 880, 0.12, 'sine');
+        for (let i = 0; i < 10; i++) {
+          const a = (Math.PI * 2 * i) / 10;
+          sparks.push({ x: orb.x, y: orb.y, vx: Math.cos(a) * 120, vy: Math.sin(a) * 120, life: 0.45 });
+        }
+        orb.x = 40 + Math.random() * Math.max(40, rect.width - 80);
+        orb.y = 40 + Math.random() * Math.max(40, rect.height - 80);
+      }
+    });
+
+    let lastT = performance.now();
+    function canvasLoop(now) {
+      const dt = Math.min((now - lastT) / 1000, 0.05);
+      lastT = now;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      orb.x += orb.vx * dt;
+      orb.y += orb.vy * dt;
+      if (orb.x < orb.r || orb.x > w - orb.r) orb.vx *= -1;
+      if (orb.y < orb.r || orb.y > h - orb.r) orb.vy *= -1;
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#FFC800';
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#0F172A';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('1/2', orb.x, orb.y);
+
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i];
+        s.life -= dt;
+        if (s.life <= 0) { sparks.splice(i, 1); continue; }
+        s.x += s.vx * dt;
+        s.y += s.vy * dt;
+        ctx.globalAlpha = s.life / 0.45;
+        ctx.fillStyle = '#58CC02';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(canvasLoop);
+    }
+    requestAnimationFrame(canvasLoop);
+
+    // 4. Mod B: Adaptif Quiz Mini Demo
+    const quizFeedback = document.getElementById('quiz-feedback');
+    document.querySelectorAll('#quiz-options .opt-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#quiz-options .opt-btn').forEach(b => b.classList.remove('is-ok', 'is-err'));
+        if (btn.dataset.ok === '1') {
+          btn.classList.add('is-ok');
+          playTone(523.25, 659.25, 0.14, 'sine');
+          quizFeedback.innerHTML = '✅ Harika! 1/2 kesrinin pay ve paydasını 2 ile genişletirsek 2/4 olur.';
+        } else {
+          btn.classList.add('is-err');
+          playTone(240, 140, 0.2, 'triangle');
+          quizFeedback.innerHTML = '💡 İpucu: Pay ve paydayı aynı sayıyla çarparak denk kesir bulabilirsin!';
+        }
+      });
+    });
+
+    // 5. Web Audio SFX Demo
+    let audioCtx = null;
+    function playTone(freq, endFreq, duration, type = 'sine', delay = 0) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!audioCtx) audioCtx = new AC();
+      if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      const now = audioCtx.currentTime + delay;
+      const osc = audioCtx.createOscillator();
+      const amp = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      if (endFreq) osc.frequency.exponentialRampToValueAtTime(Math.max(20, endFreq), now + duration);
+      amp.gain.setValueAtTime(0.001, now);
+      amp.gain.linearRampToValueAtTime(0.16, now + 0.01);
+      amp.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      osc.connect(amp);
+      amp.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.02);
+    }
+
+    let combo = 1;
+    document.getElementById('sfx-click').addEventListener('click', () => playTone(520, 320, 0.06, 'triangle'));
+    document.getElementById('sfx-jump').addEventListener('click', () => playTone(260, 620, 0.16, 'sine'));
+    document.getElementById('sfx-correct').addEventListener('click', () => {
+      const base = 523.25 * Math.min(1.5, 1 + (combo - 1) * 0.06);
+      playTone(base, null, 0.1, 'sine', 0);
+      playTone(base * 1.25, null, 0.16, 'sine', 0.07);
+      combo = combo >= 5 ? 1 : combo + 1;
+      document.getElementById('combo-num').textContent = String(combo);
+    });
+    document.getElementById('sfx-wrong').addEventListener('click', () => {
+      combo = 1;
+      document.getElementById('combo-num').textContent = '1';
+      playTone(240, 140, 0.22, 'triangle');
+    });
+    document.getElementById('sfx-win').addEventListener('click', () => {
+      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, null, 0.18, 'triangle', i * 0.09));
+    });
+
+    // 6. SCORM / postMessage Simülasyonu
+    const scormOut = document.getElementById('scorm-output');
+    document.getElementById('sim-progress').addEventListener('click', () => {
+      scormOut.textContent = JSON.stringify({
+        source: 'egiteknolojilab',
+        event: 'GAME_PROGRESS',
+        score: 50,
+        maxScore: 100,
+        passed: false,
+        completed: false,
+        durationSec: 24
+      }, null, 2);
+    });
+    document.getElementById('sim-complete').addEventListener('click', () => {
+      scormOut.textContent = JSON.stringify({
+        source: 'egiteknolojilab',
+        event: 'GAME_COMPLETED',
+        score: 90,
+        maxScore: 100,
+        passed: true,
+        completed: true,
+        durationSec: 65,
+        scormLmsCalls: [
+          'LMSSetValue("cmi.core.score.raw", "90")',
+          'LMSSetValue("cmi.core.lesson_status", "passed")',
+          'LMSCommit("")'
+        ]
+      }, null, 2);
+    });
+  </script>
+</body>
+</html>
